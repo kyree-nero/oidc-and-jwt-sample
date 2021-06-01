@@ -8,6 +8,11 @@ To set it up for yourself...
 1. Select Web Application
 1. Select Next
 1. Add the info to the application.yml file
+1. Go to Directory &gt; Users
 1. Add a user
-1. Add authorization 
+1. Go to Security  &gt; API
+1. Add authorization and connect it with your authentication instance
+1. Goto http://localhost:8080 and try it out
+
+
 
