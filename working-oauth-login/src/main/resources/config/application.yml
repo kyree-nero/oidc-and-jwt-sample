@@ -1,0 +1,24 @@
+logging:
+  level:
+    root: info
+app:
+  okta:
+    uri: https://dev-77192151.okta.com
+secondaryapp:
+  host: http://localhost
+  port: 8081  
+spring:
+  security:
+    oauth2: 
+      resourceserver:
+        jwt:
+          issuer-uri: ${app.okta.uri}/oauth2/default
+      client:
+        provider:
+          okta:
+            issuer-uri: ${app.okta.uri}/oauth2/default
+        registration:
+          okta:
+            scope: openid
+            client-id: 0oat3h9amDVTy16Oc5d6
+            client-secret: <put your secret here>

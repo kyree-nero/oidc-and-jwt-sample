@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: trace
+app:
+  okta:
+    uri: http://NOWHERE
+secondaryapp:
+  host: http://NOWHERE
+  port: 0  

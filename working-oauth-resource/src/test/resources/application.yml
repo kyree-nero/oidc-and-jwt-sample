@@ -1,0 +1,12 @@
+logging:
+  level:
+    root: trace
+server:
+  port: 8081
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://TEST/oauth2/default
+          jwk-set-uri: https://TEST/oauth2/default/v1/keys
