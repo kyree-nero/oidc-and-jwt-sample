@@ -12,6 +12,7 @@ This is an Okta example.   The main app uses Oidc for login.   It can optionally
 1. Select Web Application
 1. Select Next
 1. Add the info to the application.yml file
+1. Add http://localhost:8080/login/oauth2/code/okta to the sign in redirect urls
 1. Go to Directory &gt; Users
 1. Add a user
 1. Go to Security  &gt; API
