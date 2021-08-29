@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,7 +19,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.ExchangeFilterFunction;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import reactor.core.publisher.Mono;
@@ -96,8 +95,11 @@ public class OauthLoginApplication {
     
     public class SampleController {
     	@Autowired WebClient webClient;
+//    	@Autowired RestTemplate restTemplate;
     	@Value("${secondaryapp.host}") String secondaryAppHost;
     	@Value("${secondaryapp.port}") String secondaryAppPort;
+    	@Value("${tertiaryapp.host}") String tertiaryAppHost;
+    	@Value("${tertiaryapp.port}") String tertiaryAppPort;
     	
     	@GetMapping("/sample")
     	public Mono<Something> sample(@AuthenticationPrincipal OAuth2User authenticationPrincipal){
@@ -125,6 +127,27 @@ public class OauthLoginApplication {
     				  .bodyToMono(Something.class);
     				  
     		 return result;
+    	}
+    	
+    	
+    	@GetMapping("/sample3")
+    	public Mono<Something> sample3(@AuthenticationPrincipal OAuth2User authenticationPrincipal){
+    		String target = tertiaryAppHost+":"+ tertiaryAppPort+"/sample";
+    		System.out.println("...calling  " + target);
+    		Assert.notNull(authenticationPrincipal, "The authentication principal can't be null");
+
+    		  Mono<Something> result =  webClient
+    				  .get()
+    				  .uri(target)
+    				  .attributes(
+      					    ServerOAuth2AuthorizedClientExchangeFilterFunction.clientRegistrationId("okta")
+    				  )
+    				  .retrieve()
+    				  .bodyToMono(Something.class);
+    				  
+    		 return result;
+    		
+    		
     	}
 		
     }

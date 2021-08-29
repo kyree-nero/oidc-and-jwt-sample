@@ -7,6 +7,9 @@ app:
 secondaryapp:
   host: http://localhost
   port: 8081  
+tertiaryapp:
+  host: http://localhost
+  port: 8082
 spring:
   security:
     oauth2: 
@@ -20,5 +23,5 @@ spring:
         registration:
           okta:
             scope: openid
-            client-id: 0oat3h9amDVTy16Oc5d6
+            client-id: <put your client id here>
             client-secret: <put your secret here>
